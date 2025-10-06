@@ -2,7 +2,7 @@
 
 A **Flask-based web application** that predicts possible diseases based on user-entered (or spoken) symptoms using a **Machine Learning model**.  
 It also provides **description, precautions, medications, workouts, and diet tips** for the predicted disease.  
-The project is built with a clean **Bootstrap + custom CSS frontend** and includes a **login system**.
+The project is built with a clean **Bootstrap + custom CSS frontend** 
 
 ---
 
@@ -24,13 +24,4 @@ The project is built with a clean **Bootstrap + custom CSS frontend** and includ
 - **Machine Learning:** Scikit-learn (Support Vector Classifier)
 - **Data Handling:** Pandas, NumPy
 - **Speech Recognition:** Web Speech API
-- **Templates:** Jinja2
 
----
-
-## 🚀 Getting Started
-
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/YOUR-USERNAME/health-center-ai.git
-cd health-center-ai
