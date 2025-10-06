@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Health Center</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- App CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+  <style>
+    body { background: #f7f8fb; }
+    .hero {
+      background: linear-gradient(135deg, #2156da, #27a0c9);
+      color: #fff;
+      padding: 56px 0 40px;
+    }
+    .card { border: 1px solid #e5e7eb; border-radius: 14px; }
+    .list-icon {
+      width: 42px; height: 42px;
+      display: grid; place-items: center;
+      border-radius: 10px; background: #f1f4ff; color: #2156da;
+    }
+    .btn-copy { border: 1px dashed #cad2e1; }
+    .shadow-soft { box-shadow: 0 10px 24px rgba(15,23,42,.06); }
+    .required::after { content:" *"; color:#c2410c; }
+    .divider { height:1px; background:#e5e7eb; }
+    .map-embed { border:0; border-radius: 12px; width: 100%; height: 260px; }
+  </style>
+</head>
+<body>
+
+  <!-- ======= Top Bar ======= -->
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="{{ url_for('index') }}">
+          <span class="brand__logo">
+            <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo">
+          </span>
+          <span class="brand__text">Health Center</span>
+        </a>
+
+        <nav class="nav">
+      <a class="nav__link" href="{{ url_for('index') }}"><i class="ri-home-5-line"></i><span>Home</span></a>
+  <a class="nav__link" href="{{ url_for('about') }}"><i class="ri-information-line"></i><span>About</span></a>
+  <a class="nav__link" href="{{ url_for('contact') }}"><i class="ri-mail-line"></i><span>Contact</span></a>
+  <a class="nav__link" href="{{ url_for('developer') }}"><i class="ri-code-box-line"></i><span>Developer</span></a>
+  <a class="nav__link" href="{{ url_for('blog') }}"><i class="ri-article-line"></i><span>Blog</span></a>
+          <!-- Search -->
+          <form class="search" action="/search" method="get" role="search" aria-label="Site search">
+            <label class="visually-hidden" for="headerSearch">Search</label>
+            <input
+              class="search__input"
+              id="headerSearch"
+              name="q"
+              type="search"
+              placeholder="Search..."
+              autocomplete="off"
+            />
+            <button class="search__btn" type="submit" aria-label="Search">
+              <i class="ri-search-line"></i>
+            </button>
+          </form>
+
+        </nav>
+      </div>
+    </header>
+
+  <!-- ======= Hero ======= -->
+  <section class="hero text-center">
+    <div class="container">
+      <h1 class="display-6 fw-bold mb-2">Contact Us</h1>
+      <p class="mb-0 opacity-75">Have questions or need assistance? We’re here to help.</p>
+    </div>
+  </section>
+
+  <!-- ======= Main Content ======= -->
+  <main class="container my-5">
+    <div class="row g-4">
+      <!-- Left: Contact info -->
+      <div class="col-lg-5">
+        <div class="card shadow-soft h-100">
+          <div class="card-body p-4">
+            <h2 class="h5 fw-bold mb-3">Get in touch</h2>
+            <p class="text-muted mb-4">Reach us via email, phone, or social platforms. We typically respond within 24–48 hours.</p>
+
+            <!-- Email -->
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="list-icon"><i class="bi bi-envelope"></i></div>
+              <div>
+                <div class="fw-semibold">Email</div>
+                <a href="mailto:pugalini0812@gmail.com" class="link-primary text-decoration-none">pugalini0812@gmail.com</a>
+                <div class="mt-2">
+                  <button class="btn btn-sm btn-light btn-copy" data-copy="pugalini0812@gmail.com">
+                    <i class="bi bi-clipboard"></i> Copy
+                  </button>
+                  <a class="btn btn-sm btn-outline-primary" href="mailto:pugalini0812@gmail.com?subject=Support%20Request&body=Hello%20Health%20Center,%0A%0A">
+                    <i class="bi bi-send"></i> Email now
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="list-icon"><i class="bi bi-telephone"></i></div>
+              <div>
+                <div class="fw-semibold">Phone</div>
+                <a href="tel:+94765857882" class="link-primary text-decoration-none">+94 76 585 7882</a>
+                <div class="mt-2">
+                  <button class="btn btn-sm btn-light btn-copy" data-copy="+94765857882">
+                    <i class="bi bi-clipboard"></i> Copy
+                  </button>
+                  <a class="btn btn-sm btn-outline-success" href="https://wa.me/94765857882" target="_blank" rel="noopener">
+                    <i class="bi bi-whatsapp"></i> WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="list-icon"><i class="bi bi-geo-alt"></i></div>
+              <div>
+                <div class="fw-semibold">Location</div>
+                <div>No96E, Thirunagar North<br>Kilinochchi</div>
+              </div>
+            </div>
+
+            <div class="divider my-4"></div>
+
+            <!-- Social -->
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-dark btn-sm" href="https://www.facebook.com/" target="_blank" rel="noopener">
+                <i class="bi bi-facebook"></i> Facebook
+              </a>
+              <a class="btn btn-outline-dark btn-sm" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                <i class="bi bi-instagram"></i> Instagram
+              </a>
+            </div>
+
+            <!-- Map -->
+            <div class="mt-4">
+              <iframe class="map-embed"
+                      src="https://www.google.com/maps?q=Kilinochchi%2C%20Sri%20Lanka&output=embed"
+                      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Email form -->
+      <div class="col-lg-7">
+        <div class="card shadow-soft">
+          <div class="card-body p-4">
+            <h2 class="h5 fw-bold mb-3">Send us a message</h2>
+            <p class="text-muted mb-4">Fill in the form and click “Send Email”. Your default mail app will open with your message ready to send.</p>
+
+            <form id="contactForm" class="row g-3" onsubmit="return openMailClient(event);">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="name" placeholder="Your name" required>
+                  <label for="name" class="required">Name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                  <label for="email" class="required">Email</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+                  <label for="subject" class="required">Subject</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <textarea class="form-control" id="message" style="height: 140px" placeholder="Type your message here" required></textarea>
+                  <label for="message" class="required">Message</label>
+                </div>
+              </div>
+              <div class="col-12 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-send"></i> Send Email
+                </button>
+                <button type="reset" class="btn btn-outline-secondary">
+                  <i class="bi bi-arrow-counterclockwise"></i> Reset
+                </button>
+              </div>
+              <div class="col-12">
+                <small class="text-muted">
+                  We’ll never share your details. By contacting us, you agree to be contacted about your request.
+                </small>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======= Scripts ======= -->
+  <script>
+    // Copy buttons
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest('.btn-copy');
+      if(btn){
+        const value = btn.getAttribute('data-copy') || '';
+        navigator.clipboard.writeText(value).then(()=>{
+          const original = btn.innerHTML;
+          btn.innerHTML = '<i class="bi bi-check2-circle"></i> Copied';
+          setTimeout(()=> btn.innerHTML = original, 1500);
+        });
+      }
+    });
+
+    // Open default mail client with form data
+    function openMailClient(ev){
+      ev.preventDefault();
+      const to = 'junaidmehsuud035@gmail.com';
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim() || 'Support Request';
+      const message = document.getElementById('message').value.trim();
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${body}`;
+      return false;
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

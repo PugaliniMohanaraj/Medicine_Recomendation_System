@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Health Care Center</title>
+
+    <!-- Icons (Remix Icon) -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- App CSS (served from /static) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="{{ url_for('index') }}">
+          <span class="brand__logo">
+            <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo">
+          </span>
+          <span class="brand__text">Health Center</span>
+        </a>
+
+        <nav class="nav">
+          <a class="nav__link" href="{{ url_for('index') }}"><i class="ri-home-5-line"></i><span>Home</span></a>
+          <a class="nav__link" href="{{ url_for('about') }}"><i class="ri-information-line"></i><span>About</span></a>
+          <a class="nav__link" href="{{ url_for('contact') }}"><i class="ri-mail-line"></i><span>Contact</span></a>
+          <a class="nav__link" href="{{ url_for('developer') }}"><i class="ri-code-box-line"></i><span>Developer</span></a>
+          <a class="nav__link" href="{{ url_for('blog') }}"><i class="ri-article-line"></i><span>Blog</span></a>
+          <!-- Search -->
+          <form class="search" action="{{ url_for('search') }}" method="get" role="search" aria-label="Site search">
+            <label class="visually-hidden" for="headerSearch">Search</label>
+            <input
+              class="search__input"
+              id="headerSearch"
+              name="q"
+              type="search"
+              placeholder="Search..."
+              autocomplete="off"
+            />
+            <button class="search__btn" type="submit" aria-label="Search">
+              <i class="ri-search-line"></i>
+            </button>
+          </form>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="chip"><i class="ri-magic-line"></i> AI Symptom Helper</span>
+          <h1>Your health — simplified.</h1>
+          <p>Type or speak your symptoms. We’ll suggest a possible condition and practical next steps including precautions, medication ideas, workouts, and diet tips.</p>
+        </div>
+        <div class="hero__art" aria-hidden="true">🩺</div>
+      </div>
+    </section>
+
+    <!-- Form Section -->
+    <main class="container main">
+      <div class="card">
+        <form action="{{ url_for('predict') }}" method="post" class="form">
+          <label class="label" for="symptoms">Describe your symptoms</label>
+          <div class="inputwrap">
+            <input
+              type="text"
+              id="symptoms"
+              name="symptoms"
+              class="input"
+              placeholder="e.g., headache, sore throat, mild fever"
+              autocomplete="off"
+              aria-describedby="speechHelp"
+            />
+            <button type="button" id="startSpeechRecognition" class="btn btn--ghost" title="Speak">
+              <i class="ri-mic-line"></i>
+            </button>
+          </div>
+          <small id="speechHelp" class="muted">Click the mic and describe your symptoms in a sentence.</small>
+
+          <div class="transcript" id="transcription" aria-live="polite"></div>
+
+          {% if message %}
+          <div class="note note--warn">{{ message }}</div>
+          {% endif %}
+
+          <button type="submit" class="btn btn--primary btn--lg">
+            <i class="ri-pulse-line"></i> Predict
+          </button>
+        </form>
+      </div>
+
+      {% if predicted_disease %}
+      <!-- Results: Tabs -->
+      <section class="results">
+        <h2 class="results__title"><i class="ri-dashboard-2-line"></i> Results</h2>
+
+        <div class="tabs" data-tabs>
+          <div class="tabs__list" role="tablist" aria-label="Results tabs">
+            <button class="tabs__btn is-active" role="tab" aria-selected="true" aria-controls="tab-disease" id="tab-disease-btn">
+              <i class="ri-virus-line"></i> Disease
+            </button>
+            <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-desc" id="tab-desc-btn">
+              <i class="ri-file-text-line"></i> Description
+            </button>
+            <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-prec" id="tab-prec-btn">
+              <i class="ri-shield-check-line"></i> Precaution
+            </button>
+            <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-meds" id="tab-meds-btn">
+              <i class="ri-capsule-line"></i> Medications
+            </button>
+            <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-work" id="tab-work-btn">
+              <i class="ri-heart-pulse-line"></i> Workouts
+            </button>
+            <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-diet" id="tab-diet-btn">
+              <i class="ri-restaurant-line"></i> Diets
+            </button>
+          </div>
+
+          <div class="tabs__panes">
+            <section class="tabs__pane is-active" id="tab-disease" role="tabpanel" aria-labelledby="tab-disease-btn">
+              <div class="panel">
+                <h3 class="panel__title"><i class="ri-virus-line"></i> Predicted Disease</h3>
+                <p class="panel__body">{{ predicted_disease }}</p>
+              </div>
+            </section>
+
+            <section class="tabs__pane" id="tab-desc" role="tabpanel" aria-labelledby="tab-desc-btn">
+              <div class="panel">
+                <h3 class="panel__title"><i class="ri-file-text-line"></i> Description</h3>
+                <p class="panel__body">{{ dis_des }}</p>
+              </div>
+            </section>
+
+            <section class="tabs__pane" id="tab-prec" role="tabpanel" aria-labelledby="tab-prec-btn">
+              <div class="panel">
+                <h3 class="panel__title"><i class="ri-shield-check-line"></i> Precaution</h3>
+                <ul class="panel__list">
+                  {% for i in my_precautions %}
+                    <li>{{ i }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+
+            <section class="tabs__pane" id="tab-meds" role="tabpanel" aria-labelledby="tab-meds-btn">
+              <div class="panel">
+                <h3 class="panel__title"><i class="ri-capsule-line"></i> Medications</h3>
+                <ul class="panel__list">
+                  {% for i in medications %}
+                    <li>{{ i }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+
+            <section class="tabs__pane" id="tab-work" role="tabpanel" aria-labelledby="tab-work-btn">
+              <div class="panel">
+                <h3 class="panel__title"><i class="ri-heart-pulse-line"></i> Workouts</h3>
+                <ul class="panel__list">
+                  {% for i in workout %}
+                    <li>{{ i }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+
+            <section class="tabs__pane" id="tab-diet" role="tabpanel" aria-labelledby="tab-diet-btn">
+              <div class="panel">
+                <h3 class="panel__title"><i class="ri-restaurant-line"></i> Diets</h3>
+                <ul class="panel__list">
+                  {% for i in my_diet %}
+                    <li>{{ i }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>© {{ current_year or "2025" }} Health Center</div>
+        <div class="muted">Not a substitute for professional medical advice.</div>
+      </div>
+    </footer>
+
+    <!-- Speech + Tabs JS -->
+    <script>
+      // Speech recognition
+      (function(){
+        const btn = document.getElementById('startSpeechRecognition');
+        const transcriptionDiv = document.getElementById('transcription');
+        const input = document.getElementById('symptoms');
+        if(!btn) return;
+
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if(!SR){
+          btn.disabled = true;
+          btn.classList.add('is-disabled');
+          btn.innerHTML = '<i class="ri-mic-off-line"></i>';
+          transcriptionDiv.textContent = 'Speech recognition is not supported in this browser.';
+          return;
+        }
+
+        const recog = new SR();
+        recog.lang = 'en-US';
+        recog.interimResults = true;
+        let finalText = '';
+
+        recog.onresult = (e) => {
+          let interim = '';
+          for (let i = e.resultIndex; i < e.results.length; i++) {
+            const t = e.results[i][0].transcript.trim();
+            if (e.results[i].isFinal) finalText += (finalText ? ' ' : '') + t;
+            else interim += t + ' ';
+          }
+          const text = (finalText + ' ' + interim).trim();
+          transcriptionDiv.textContent = text;
+          input.value = text;
+        };
+
+        recog.onerror = (e) => {
+          transcriptionDiv.textContent = 'Speech error: ' + (e.error || 'unknown');
+        };
+
+        recog.onend = () => {
+          input.value = finalText || input.value;
+        };
+
+        btn.addEventListener('click', () => {
+          finalText = '';
+          transcriptionDiv.textContent = 'Listening…';
+          recog.start();
+        });
+      })();
+
+      // Tabs
+      (function(){
+        const tabs = document.querySelector('[data-tabs]');
+        if(!tabs) return;
+
+        const buttons = tabs.querySelectorAll('.tabs__btn');
+        const panes = tabs.querySelectorAll('.tabs__pane');
+
+        buttons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+            btn.classList.add('is-active'); btn.setAttribute('aria-selected', 'true');
+
+            panes.forEach(p => p.classList.remove('is-active'));
+            const pane = document.getElementById(btn.getAttribute('aria-controls'));
+            if (pane) pane.classList.add('is-active');
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

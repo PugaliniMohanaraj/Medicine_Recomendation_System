@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search — Health Center</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand__logo"><img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo"></span>
+        <span class="brand__text">Health Center</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="container main">
+    <h2>Search results for “{{ query }}”</h2>
+
+    {% if message %}
+      <div class="note note--warn">{{ message }}</div>
+    {% endif %}
+
+    {% if results %}
+      <div class="card" style="padding:0;">
+        <ul class="panel__list" style="margin:0;">
+          {% for item in results %}
+            <li style="display:flex;gap:.5rem;align-items:center;">
+              {% if item.type == "Disease" %}
+                <i class="ri-virus-line" aria-hidden="true"></i>
+              {% else %}
+                <i class="ri-stethoscope-line" aria-hidden="true"></i>
+              {% endif %}
+              <strong>{{ item.name }}</strong>
+              <span class="chip" style="margin-left:auto;">{{ item.type }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div style="margin-top:1rem;">
+      <a href="{{ url_for('index') }}" class="btn btn--ghost"><i class="ri-arrow-left-line"></i> Back</a>
+    </div>
+  </main>
+</body>
+</html>
