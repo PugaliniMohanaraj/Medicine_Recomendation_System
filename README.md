@@ -12,7 +12,6 @@ The project is built with a clean **Bootstrap + custom CSS frontend**
 - 🧠 **AI disease prediction** — trained using Support Vector Classifier (SVC).
 - 🩺 **Detailed health advice** — precautions, medications, workouts, and diet suggestions.
 - 🖥️ **Modern UI** — responsive and clean interface using Bootstrap & custom CSS.
-- 🔒 **Login system** — simple authentication before using the app.
 - 🔎 **Search function** — find diseases or symptoms easily.
 
 ---
