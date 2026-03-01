@@ -18,7 +18,7 @@
       <div class="container topbar__inner">
         <a class="brand" href="{{ url_for('index') }}">
           <span class="brand__logo">
-            <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo">
+            <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo" onerror="this.style.display='none'">
           </span>
           <span class="brand__text">Health Center</span>
         </a>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Health Care Center</title>
+
+    <!-- Icons (Remix Icon) -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- App CSS (served from /static) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="{{ url_for('index') }}">
+          <span class="brand__logo">
+            <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo" onerror="this.style.display='none'">
+          </span>
+          <span class="brand__text">Health Center</span>
+        </a>
+
+        <nav class="nav">
+          <a class="nav__link" href="{{ url_for('index') }}"><i class="ri-home-5-line"></i><span>Home</span></a>
+          <a class="nav__link" href="{{ url_for('about') }}"><i class="ri-information-line"></i><span>About</span></a>
+          <a class="nav__link" href="{{ url_for('contact') }}"><i class="ri-mail-line"></i><span>Contact</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Login Section -->
+    <main class="container main">
+      <div class="card" style="max-width: 400px; margin: 2rem auto;">
+        <h2 style="text-align: center; margin-bottom: 1.5rem;">
+          <i class="ri-login-box-line"></i> Login
+        </h2>
+        
+        {% if message %}
+        <div class="note note--warn">{{ message }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('login') }}" method="post" class="form">
+          <label class="label" for="email">Email</label>
+          <div class="inputwrap">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="input"
+              placeholder="Enter your email"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <label class="label" for="password" style="margin-top: 1rem;">Password</label>
+          <div class="inputwrap">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg" style="margin-top: 1.5rem; width: 100%;">
+            <i class="ri-login-box-line"></i> Sign In
+          </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 1rem;" class="muted">
+          <small>Demo: demo@health.center / demo123</small>
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>© {{ current_year or "2025" }} Health Center</div>
+        <div class="muted">Not a substitute for professional medical advice.</div>
+      </div>
+    </footer>
+  </body>
+</html>

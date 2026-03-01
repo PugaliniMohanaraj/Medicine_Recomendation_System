@@ -208,4 +208,6 @@ def __routes():
 if __name__ == "__main__":
     os.makedirs("static", exist_ok=True)
     os.makedirs("templates", exist_ok=True)
-    app.run(debug=True)
+    os.makedirs("models", exist_ok=True)
+    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug_mode, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
